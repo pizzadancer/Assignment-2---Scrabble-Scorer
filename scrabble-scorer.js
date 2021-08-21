@@ -1,6 +1,8 @@
 // inspired by https://exercism.io/tracks/javascript/exercises/etl/solutions/91f99a3cca9548cebe5975d7ebca6a85
 
 const input = require("readline-sync");
+const chalk = require("chalk");
+const headings = chalk.bold.hex("#FFA500");
 
 const oldPointStructure = {
    1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
@@ -34,7 +36,7 @@ function oldScrabbleScorer(word) {
 // don't change the names or your program won't work as expected. //
 
 function initialPrompt() {
-   console.log("Let's play some scrabble!");
+   console.log(headings("Let's play some scrabble!\n"));
    return input.question("Please enter a word: ");
 };
 /*
@@ -64,6 +66,7 @@ let vowelBonusScore = function (userWord) {
    Scrabble	The traditional scoring algorithm.	Uses the oldScrabbleScorer() function to determine the score for a given word.
 */
 let scrabbleScore = function (userWord) {
+   transform(oldPointStructure);
    userWord = userWord.toUpperCase();
    // console.log(userWord)
    // console.log(newPointStructure[userWord[0]])
@@ -81,7 +84,26 @@ let scrabbleScore = function (userWord) {
    // return the total accumulated score
 }
 
-const scoringAlgorithms = [simpleScore, vowelBonusScore, scrabbleScore];
+
+// Create an array of objects with a name, description, and scoringFunction.
+const scoringAlgorithms = [
+   // [simpleScore, vowelBonusScore, scrabbleScore];
+   {
+      name: "Simple Score",
+      description: "Each letter is worth 1 point.",
+      scoringFunction: simpleScore
+   },
+   {
+      name: "Bonus Vowels",
+      description: "Vowels are 3 pts, consonants are 1 pt.",
+      scoringFunction: vowelBonusScore
+   },
+   {
+      name: "Scrabble",
+      description: "The traditional scoring algorithm.",
+      scoringFunction: scrabbleScore
+   }
+]
 /*
    Which scoring algorithm would you like to use?
 
@@ -91,10 +113,10 @@ const scoringAlgorithms = [simpleScore, vowelBonusScore, scrabbleScore];
    Enter 0, 1, or 2: 0
 */
 function scorerPrompt() {
-   console.log(`Which scoring algorithm would you like to use?
+   console.log(`Which scoring algorithm would you like to use?\n
    0 - Simple: One point per character
    1 - Vowel Bonus: Vowels are worth 3 points
-   2 - Scrabble: Uses scrabble point system`);
+   2 - Scrabble: Uses scrabble point system\n`);
    return input.question("Enter 0, 1, or 2: ");
 }
 
@@ -113,16 +135,18 @@ let newPointStructure = {};
 
 function runProgram() {
 
-   scorerPrompt();
-   // let userWord = initialPrompt();
+
+   let userWord = initialPrompt();
+   let algorithmChoice = Number(scorerPrompt());
    // console.log(oldScrabbleScorer(userWord))
    // console.log(simpleScore(userWord));
    // console.log(`In Old Scrabble Score : ${oldScrabbleScorer(userWord)}`);
    // console.log(`In Simple Score : ${simpleScore(userWord)}`);
    // console.log(`In Vowel Bonus Score : ${vowelBonusScore(userWord)}`);
-   // transform(oldPointStructure);
-   // console.log(`In Scrabble Score : ${scrabbleScore(userWord)}`);
 
+   // console.log(`In Scrabble Score : ${scrabbleScore(userWord)}`);
+   let finalScore = scoringAlgorithms[algorithmChoice].scoringFunction(userWord);
+   console.log(chalk.blue((`Score for '${userWord}': ${finalScore}`)));
 }
 
 // Don't write any code below this line //
