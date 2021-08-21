@@ -81,9 +81,22 @@ let scrabbleScore = function (userWord) {
    // return the total accumulated score
 }
 
-const scoringAlgorithms = [];
+const scoringAlgorithms = [simpleScore, vowelBonusScore, scrabbleScore];
+/*
+   Which scoring algorithm would you like to use?
 
-function scorerPrompt() { }
+   0 - Simple: One point per character
+   1 - Vowel Bonus: Vowels are worth 3 points
+   2 - Scrabble: Uses scrabble point system
+   Enter 0, 1, or 2: 0
+*/
+function scorerPrompt() {
+   console.log(`Which scoring algorithm would you like to use?
+   0 - Simple: One point per character
+   1 - Vowel Bonus: Vowels are worth 3 points
+   2 - Scrabble: Uses scrabble point system`);
+   return input.question("Enter 0, 1, or 2: ");
+}
 
 function transform(oldPointStructure) {
    for (let property in oldPointStructure) {
@@ -99,14 +112,16 @@ function transform(oldPointStructure) {
 let newPointStructure = {};
 
 function runProgram() {
-   let userWord = initialPrompt();
+
+   scorerPrompt();
+   // let userWord = initialPrompt();
    // console.log(oldScrabbleScorer(userWord))
    // console.log(simpleScore(userWord));
    // console.log(`In Old Scrabble Score : ${oldScrabbleScorer(userWord)}`);
    // console.log(`In Simple Score : ${simpleScore(userWord)}`);
    // console.log(`In Vowel Bonus Score : ${vowelBonusScore(userWord)}`);
-   transform(oldPointStructure);
-   console.log(`In Scrabble Score : ${scrabbleScore(userWord)}`);
+   // transform(oldPointStructure);
+   // console.log(`In Scrabble Score : ${scrabbleScore(userWord)}`);
 
 }
 
