@@ -53,10 +53,26 @@ function initialPrompt() {
 let simpleScore = function (userWord) {
    return userWord.length;
 };
+/*
+   Bonus Vowels	Vowels are 3 pts, consonants are 1 pt.	A function that returns a score based on the number of vowels and consonants.
+*/
+let vowelBonusScore = function (userWord) {
+   let score = userWord.length;
+   let isVowel = char => ["a", "e", "i", "o", "u"].includes(char);
+   for (let char of userWord) {
+      if (isVowel(char)) {
+         score += 2;
+      }
+   }
+   return score
+};
 
-let vowelBonusScore;
+/*
+   Scrabble	The traditional scoring algorithm.	Uses the oldScrabbleScorer() function to determine the score for a given word.
+*/
+let scrabbleScore = function (userWord) {
 
-let scrabbleScore;
+}
 
 const scoringAlgorithms = [];
 
@@ -69,7 +85,11 @@ let newPointStructure;
 function runProgram() {
    let userWord = initialPrompt();
    // console.log(oldScrabbleScorer(userWord))
-   console.log(simpleScore(userWord));
+   // console.log(simpleScore(userWord));
+   // console.log(`In Old Scrabble Score : ${oldScrabbleScorer(userWord)}`);
+   console.log(`In Simple Score : ${simpleScore(userWord)}`);
+   console.log(`In Vowel Bonus Score : ${vowelBonusScore(userWord)}`);
+
 
 
 }
