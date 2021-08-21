@@ -30,16 +30,6 @@ function oldScrabbleScorer(word) {
 }
 
 
-
-/*
-
- for (let char of userWord) {
-      console.log(char)
-   }
-
-   
-*/
-
 // your job is to finish writing these functions and variables that we've named //
 // don't change the names or your program won't work as expected. //
 
@@ -74,26 +64,49 @@ let vowelBonusScore = function (userWord) {
    Scrabble	The traditional scoring algorithm.	Uses the oldScrabbleScorer() function to determine the score for a given word.
 */
 let scrabbleScore = function (userWord) {
+   userWord = userWord.toUpperCase();
+   // console.log(userWord)
+   // console.log(newPointStructure[userWord[0]])
+   let score = 0;
+   for (let letter of userWord) {
+      let soloLetterScore = newPointStructure[letter];
+      score += soloLetterScore;
+      // console.log(letter);
+   }
+   return score;
 
+
+   // cycle through the entire userWord
+   // for every letter find the score from the newPointStructure
+   // return the total accumulated score
 }
 
 const scoringAlgorithms = [];
 
 function scorerPrompt() { }
 
-function transform() { };
+function transform(oldPointStructure) {
+   for (let property in oldPointStructure) {
+      // console.log(`${property}: ${oldPointStructure[property]}`);
+      for (let letter of oldPointStructure[property]) {
+         // console.log(letter);
+         newPointStructure[letter] = Number(property);
+      }
+   }
+   return newPointStructure;
+};
 
-let newPointStructure;
+let newPointStructure = {};
 
 function runProgram() {
    let userWord = initialPrompt();
    // console.log(oldScrabbleScorer(userWord))
    // console.log(simpleScore(userWord));
    // console.log(`In Old Scrabble Score : ${oldScrabbleScorer(userWord)}`);
-   console.log(`In Simple Score : ${simpleScore(userWord)}`);
-   console.log(`In Vowel Bonus Score : ${vowelBonusScore(userWord)}`);
-
-
+   // console.log(`In Simple Score : ${simpleScore(userWord)}`);
+   // console.log(`In Vowel Bonus Score : ${vowelBonusScore(userWord)}`);
+   transform(oldPointStructure);
+   console.log(`In Scrabble Score : ${scrabbleScore(userWord)}`);
 
 }
 
