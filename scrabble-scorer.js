@@ -55,9 +55,12 @@ let simpleScore = function (userWord) {
 };
 /*
    Bonus Vowels	Vowels are 3 pts, consonants are 1 pt.	A function that returns a score based on the number of vowels and consonants.
+      Adds the simple score as the baseline
+      Declares an isVowel() mapping function which checks if the char is a vowel or not
+      Loop: through userWord and if the char in userWord is a vowel, add the 2 remaining points as a bonus
 */
 let vowelBonusScore = function (userWord) {
-   let score = userWord.length;
+   let score = simpleScore(userWord);
    let isVowel = char => ["a", "e", "i", "o", "u"].includes(char);
    for (let char of userWord) {
       if (isVowel(char)) {
